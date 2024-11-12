@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { ProductInstanceSchema } from "./product_instance.model";
+import { ProductInstanceSchema } from "./product_instance.model.js";
 
 const CartSchema = mongoose.Schema({
     prodcutInstances: [ProductInstanceSchema],

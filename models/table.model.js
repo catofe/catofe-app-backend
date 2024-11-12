@@ -13,4 +13,4 @@ const TableSchema = mongoose.Schema({
 
 const Table = mongoose.model("Table", TableSchema);
 
-export default Table;
+export { TableSchema, Table };
