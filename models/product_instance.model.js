@@ -16,4 +16,4 @@ const ProductInstance = mongoose.model(
     ProductInstanceSchema
 );
 
-export default ProductInstance;
+export { ProductInstanceSchema, ProductInstance };
