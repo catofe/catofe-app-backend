@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 import { ProductInstanceSchema } from "./product_instance.model.js";
 
-const OrderSchema = mongoose.Schema(
+const CartSchema = mongoose.Schema(
     {
         prodcutInstances: [ProductInstanceSchema],
         total: {
@@ -14,6 +14,6 @@ const OrderSchema = mongoose.Schema(
     }
 );
 
-const Order = mongoose.model("Order", OrderSchema);
+const Cart = mongoose.model("Cart", CartSchema);
 
-export { OrderSchema, Order };
+export { CartSchema, Cart };

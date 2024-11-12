@@ -1,15 +1,20 @@
 import mongoose from "mongoose";
 
-const ProductInstanceSchema = mongoose.Schema({
-    product: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Product",
+const ProductInstanceSchema = mongoose.Schema(
+    {
+        product: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Product",
+        },
+        quantity: {
+            type: Number,
+            required: true,
+        },
     },
-    quantity: {
-        type: Number,
-        required: true,
-    },
-});
+    {
+        timestamps: true,
+    }
+);
 
 const ProductInstance = mongoose.model(
     "ProductInstance",
