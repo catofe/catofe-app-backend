@@ -1,4 +1,6 @@
 import mongoose from "mongoose";
+import { CartSchema } from "./cart.mode";
+import { OrderSchema } from "./order.model";
 
 const UserSchema = mongoose.Schema({
     username: {
@@ -17,6 +19,8 @@ const UserSchema = mongoose.Schema({
         type: String,
         required: false,
     },
+    orders: [OrderSchema],
+    cart: CartSchema,
 });
 
 const User = mongoose.model("User", UserSchema);
