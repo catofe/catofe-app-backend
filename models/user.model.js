@@ -1,27 +1,34 @@
 import mongoose from "mongoose";
-import { CartSchema } from "./cart.mode";
-import { OrderSchema } from "./order.model";
+import { CartSchema } from "./cart.model.js";
+import { OrderSchema } from "./order.model.js";
+import { ReservationSchema } from "./reservation.model.js";
 
-const UserSchema = mongoose.Schema({
-    username: {
-        type: String,
-        required: true,
+const UserSchema = mongoose.Schema(
+    {
+        username: {
+            type: String,
+            required: true,
+        },
+        email: {
+            type: String,
+            required: true,
+        },
+        password: {
+            type: String,
+            required: true,
+        },
+        contact_no: {
+            type: String,
+            required: false,
+        },
+        cart: CartSchema,
+        orders: [OrderSchema],
+        reservations: [ReservationSchema],
     },
-    email: {
-        type: String,
-        required: true,
-    },
-    password: {
-        type: String,
-        required: true,
-    },
-    contact_no: {
-        type: String,
-        required: false,
-    },
-    orders: [OrderSchema],
-    cart: CartSchema,
-});
+    {
+        timestamps: true,
+    }
+);
 
 const User = mongoose.model("User", UserSchema);
 
