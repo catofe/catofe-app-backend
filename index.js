@@ -6,7 +6,7 @@ import CartRouter from "./routes/cart.route.js";
 import OrderRouter from "./routes/order.route.js";
 import ProductRouter from "./routes/product.route.js";
 import ReservationRouter from "./routes/reservation.route.js";
-import SeatRouter from "./routes/seat.route.js";
+import TableRouter from "./routes/table.route.js";
 import UserRouter from "./routes/user.route.js";
 
 const app = express();
@@ -20,7 +20,7 @@ app.use("/api/cart/", CartRouter);
 app.use("/api/order/", OrderRouter);
 app.use("/api/product/", ProductRouter);
 app.use("/api/reservation/", ReservationRouter);
-app.use("/api/seat/", SeatRouter);
+app.use("/api/table/", TableRouter);
 app.use("/api/user/", UserRouter);
 
 mongoose
