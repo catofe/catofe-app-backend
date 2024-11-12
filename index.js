@@ -2,12 +2,12 @@ import mongoose from "mongoose";
 import express from "express";
 import cors from "cors";
 
-import CartRouter from "./routes/cart.route";
-import OrderRouter from "./routes/order.route";
-import ProductRouter from "./routes/product.route";
-import ReservationRouter from "./routes/reservation.route";
-import SeatRouter from "./routes/seat.route";
-import UserRouter from "./routes/user.route";
+import CartRouter from "./routes/cart.route.js";
+import OrderRouter from "./routes/order.route.js";
+import ProductRouter from "./routes/product.route.js";
+import ReservationRouter from "./routes/reservation.route.js";
+import SeatRouter from "./routes/seat.route.js";
+import UserRouter from "./routes/user.route.js";
 
 const app = express();
 const connectionString = ``;
