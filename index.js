@@ -8,9 +8,10 @@ import ProductRouter from "./routes/product.route.js";
 import ReservationRouter from "./routes/reservation.route.js";
 import TableRouter from "./routes/table.route.js";
 import UserRouter from "./routes/user.route.js";
+import databaseConfig from "./database.config.js";
 
 const app = express();
-const connectionString = ``;
+const connectionString = `mongodb+srv://admin:${databaseConfig.password}@cluster0.sgmmy.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`;
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -31,6 +32,7 @@ mongoose
             console.log("Server is running on port 3000");
         });
     })
-    .catch(() => {
+    .catch((error) => {
+        console.log(error.message);
         console.log("Connection to MongoDB database failed");
     });
