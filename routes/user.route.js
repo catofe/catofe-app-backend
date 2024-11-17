@@ -52,32 +52,6 @@ UserRouter.put("/:id", async (req, res) => {
     }
 });
 
-UserRouter.put("/:id/add_to_cart", async (req, res) => {
-    try {
-        const { id } = req.params;
-        const user = await User.findById(id);
-
-        try {
-            user.cart.push(req.body);
-            await user.save();
-        } catch (error) {
-            console.log(error.message);
-            res.status(500).json({ message: error.message });
-            return;
-        }
-
-        if (!user) {
-            return res.status(404).json({ message: "User not found" });
-        }
-
-        const updated = await User.findById(id);
-        res.status(200).json(updated);
-    } catch (error) {
-        console.log(error.message);
-        res.status(500).json({ message: error.message });
-    }
-});
-
 UserRouter.delete("/:id", async (req, res) => {
     try {
         const { id } = req.params;
@@ -93,30 +67,5 @@ UserRouter.delete("/:id", async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 });
-
-UserRouter.delete(
-    "/:id/remove_from_cart/:product_instance_id",
-    async (req, res) => {
-        try {
-            const { id, product_instance_id } = req.params;
-            const user = await User.findById(id);
-
-            await User.updateOne(
-                { _id: id },
-                { $pull: { cart: { _id: product_instance_id } } }
-            );
-
-            if (!user) {
-                return res.status(404).json({ message: "User not found" });
-            }
-
-            const updated = await User.findById(id);
-            res.status(200).json(updated);
-        } catch (error) {
-            console.log(error.message);
-            res.status(500).json({ message: error.message });
-        }
-    }
-);
 
 export default UserRouter;
