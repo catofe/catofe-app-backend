@@ -43,7 +43,7 @@ OrderRouter.put("/:uid/generate_order", async (req, res) => {
         }
 
         const updated = await User.findById(uid);
-        res.status(200).json(updated);
+        res.status(200).send(JSON.stringify(updated, null, 2));
     } catch (error) {
         console.log(error.message);
         res.status(500).json({ message: error.message });
@@ -65,7 +65,7 @@ OrderRouter.delete("/:uid/delete_order/:order_id", async (req, res) => {
         }
 
         const updated = await User.findById(uid);
-        res.status(200).json(updated);
+        res.status(200).send(JSON.stringify(updated, null, 2));
     } catch (error) {
         console.log(error.message);
         res.status(500).json({ message: error.message });

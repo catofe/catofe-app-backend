@@ -23,7 +23,7 @@ CartRouter.put("/:uid/add_to_cart", async (req, res) => {
         }
 
         const updated = await User.findById(uid);
-        res.status(200).json(updated);
+        res.status(200).send(JSON.stringify(updated, null, 2));
     } catch (error) {
         console.log(error.message);
         res.status(500).json({ message: error.message });
@@ -47,7 +47,7 @@ CartRouter.delete(
             }
 
             const updated = await User.findById(uid);
-            res.status(200).json(updated);
+            res.status(200).send(JSON.stringify(updated, null, 2));
         } catch (error) {
             console.log(error.message);
             res.status(500).json({ message: error.message });
