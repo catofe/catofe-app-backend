@@ -4,6 +4,17 @@ import { Product } from "../models/product.model.js";
 
 const OrderRouter = express.Router();
 
+OrderRouter.get("/:uid/get_orders/", async (req, res) => {
+    try {
+        const { uid, order_id } = req.params;
+        const user = await User.findById(uid);
+        res.status(200).send(JSON.stringify(user.orders, null, 2));
+    } catch (error) {
+        console.log(error.message);
+        res.status(500).json({ message: error.message });
+    }
+});
+
 OrderRouter.put("/:uid/generate_order", async (req, res) => {
     try {
         const { uid } = req.params;
@@ -30,7 +41,7 @@ OrderRouter.put("/:uid/generate_order", async (req, res) => {
 
         try {
             user.cart = [];
-            user.orders = order;
+            user.orders.push(order);
             await user.save();
         } catch (error) {
             console.log(error.message);
