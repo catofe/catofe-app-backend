@@ -3,6 +3,17 @@ import User from "../models/user.model.js";
 
 const CartRouter = express.Router();
 
+CartRouter.get("/:uid/", async (req, res) => {
+    try {
+        const { uid } = req.params;
+        const user = await User.findById(uid);
+        res.status(200).send(JSON.stringify(user.cart, null, 2));
+    } catch (error) {
+        console.log(error.message);
+        res.status(500).json({ message: error.message });
+    }
+});
+
 CartRouter.put("/:uid/add_to_cart", async (req, res) => {
     try {
         const { uid } = req.params;
@@ -23,7 +34,7 @@ CartRouter.put("/:uid/add_to_cart", async (req, res) => {
         }
 
         const updated = await User.findById(uid);
-        res.status(200).send(JSON.stringify(updated, null, 2));
+        res.status(200).send(JSON.stringify(updated.cart, null, 2));
     } catch (error) {
         console.log(error.message);
         res.status(500).json({ message: error.message });
@@ -47,7 +58,7 @@ CartRouter.delete(
             }
 
             const updated = await User.findById(uid);
-            res.status(200).send(JSON.stringify(updated, null, 2));
+            res.status(200).send(JSON.stringify(updated.cart, null, 2));
         } catch (error) {
             console.log(error.message);
             res.status(500).json({ message: error.message });
