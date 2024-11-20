@@ -25,6 +25,18 @@ UserRouter.get("/", async (req, res) => {
     }
 });
 
+UserRouter.get("/auth/:email/:password", async (req, res) => {
+    try {
+        const { email, password } = req.params;
+        const user = await User.findOne({ email: email, password: password });
+
+        res.status(200).send(JSON.stringify(user._id, null, 2));
+    } catch (error) {
+        console.log(error.message);
+        res.status(500).json({ message: error.message });
+    }
+});
+
 UserRouter.post("/", async (req, res) => {
     try {
         const user = await User.create(req.body);
