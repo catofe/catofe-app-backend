@@ -4,7 +4,7 @@ import { Product } from "../models/product.model.js";
 
 const OrderRouter = express.Router();
 
-OrderRouter.get("/:uid/get_orders/", async (req, res) => {
+OrderRouter.get("/:uid/", async (req, res) => {
     try {
         const { uid, order_id } = req.params;
         const user = await User.findById(uid);
