@@ -37,7 +37,7 @@ UserRouter.get("/auth/:email/:password", async (req, res) => {
     }
 });
 
-UserRouter.post("/", async (req, res) => {
+UserRouter.post("/register", async (req, res) => {
     try {
         const user = await User.create(req.body);
         res.status(200).send(JSON.stringify(user, null, 2));

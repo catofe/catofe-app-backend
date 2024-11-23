@@ -8,7 +8,7 @@ const UserSchema = mongoose.Schema(
     {
         username: {
             type: String,
-            required: true,
+            required: false,
         },
         email: {
             type: String,
@@ -24,7 +24,6 @@ const UserSchema = mongoose.Schema(
         },
         cart: [ProductInstanceSchema],
         orders: [OrderSchema],
-        reservations: [ReservationSchema],
     },
     {
         timestamps: true,

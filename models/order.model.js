@@ -3,7 +3,7 @@ import { ProductInstanceSchema } from "./product_instance.model.js";
 
 const OrderSchema = mongoose.Schema(
     {
-        prodcutInstances: [ProductInstanceSchema],
+        productInstances: [ProductInstanceSchema],
         total: {
             type: Number,
             required: true,
