@@ -15,6 +15,17 @@ UserRouter.get("/:id", async (req, res) => {
     }
 });
 
+UserRouter.get("/:id/non_sensitive", async (req, res) => {
+    try {
+        const { id } = req.params;
+        const user = await User.findById(id).select({ password: 0 });
+        res.status(200).send(JSON.stringify(user, null, 2));
+    } catch (error) {
+        console.log(error.message);
+        res.status(500).json({ message: error.message });
+    }
+});
+
 UserRouter.get("/", async (req, res) => {
     try {
         const users = await User.find();

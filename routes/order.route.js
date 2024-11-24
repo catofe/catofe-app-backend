@@ -15,6 +15,27 @@ OrderRouter.get("/:uid/", async (req, res) => {
     }
 });
 
+OrderRouter.get("/:uid/populate", async (req, res) => {
+    try {
+        const { uid, order_id } = req.params;
+        const user = await User.findById(uid).populate({
+            path: "orders",
+            populate: {
+                path: "productInstances",
+                populate: {
+                    path: "product",
+                    model: "Product",
+                },
+            },
+        });
+        console.log(user.orders);
+        res.status(200).send(JSON.stringify(user.orders, null, 2));
+    } catch (error) {
+        console.log(error.message);
+        res.status(500).json({ message: error.message });
+    }
+});
+
 OrderRouter.put("/:uid/generate_order", async (req, res) => {
     try {
         const { uid } = req.params;
@@ -24,7 +45,7 @@ OrderRouter.put("/:uid/generate_order", async (req, res) => {
 
         let total = 0;
         let order = {
-            prodcutInstances: [],
+            productInstances: [],
             total: 0,
         };
 
@@ -36,7 +57,7 @@ OrderRouter.put("/:uid/generate_order", async (req, res) => {
             total = parseFloat(total.toFixed(2));
         }
 
-        order.prodcutInstances = cart;
+        order.productInstances = cart;
         order.total = total;
 
         try {
@@ -82,5 +103,39 @@ OrderRouter.delete("/:uid/delete_order/:order_id", async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 });
+
+OrderRouter.delete(
+    "/:uid/delete_order/:order_id/populate",
+    async (req, res) => {
+        try {
+            const { uid, order_id } = req.params;
+            const user = await User.findById(uid);
+
+            await User.updateOne(
+                { _id: uid },
+                { $pull: { orders: { _id: order_id } } }
+            );
+
+            if (!user) {
+                return res.status(404).json({ message: "User not found" });
+            }
+
+            const updated = await User.findById(uid).populate({
+                path: "orders",
+                populate: {
+                    path: "productInstances",
+                    populate: {
+                        path: "product",
+                        model: "Product",
+                    },
+                },
+            });
+            res.status(200).send(JSON.stringify(updated.orders, null, 2));
+        } catch (error) {
+            console.log(error.message);
+            res.status(500).json({ message: error.message });
+        }
+    }
+);
 
 export default OrderRouter;
