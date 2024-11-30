@@ -18,6 +18,16 @@ const ProductSchema = mongoose.Schema(
             type: Number,
             required: true,
         },
+        category: {
+            type: String,
+            default: "",
+            required: true,
+        },
+        frequency: {
+            type: Number,
+            default: 0,
+            required: true,
+        },
     },
     {
         timestamps: true,
@@ -26,4 +36,4 @@ const ProductSchema = mongoose.Schema(
 
 const Product = mongoose.model("Product", ProductSchema);
 
-export default Product;
+export { ProductSchema, Product };
