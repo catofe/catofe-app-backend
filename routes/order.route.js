@@ -55,6 +55,14 @@ OrderRouter.put("/:uid/generate_order", async (req, res) => {
 
             total = total + product.price * product_instance.quantity;
             total = parseFloat(total.toFixed(2));
+
+            try {
+                product.frequency++;
+                await product.save();
+            } catch (error) {
+                console.log(error.message);
+                continue;
+            }
         }
 
         order.productInstances = cart;
