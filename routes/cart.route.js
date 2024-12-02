@@ -98,15 +98,28 @@ CartRouter.put("/:uid/add_to_cart", async (req, res) => {
     try {
         const { uid } = req.params;
         const user = await User.findById(uid);
+        const cartItem = user.cart.find(
+            (item) => item.product.toString() === req.body.product
+        );
 
-        try {
-            user.cart.push(req.body);
-            console.log(req.body);
-            await user.save();
-        } catch (error) {
-            console.log(error.message);
-            res.status(500).json({ message: error.message });
-            return;
+        if (cartItem == undefined || cartItem == null) {
+            try {
+                user.cart.push(req.body);
+                await user.save();
+            } catch (error) {
+                console.log(error.message);
+                res.status(500).json({ message: error.message });
+                return;
+            }
+        } else {
+            try {
+                cartItem.quantity++;
+                await user.save();
+            } catch (error) {
+                console.log(error.message);
+                res.status(500).json({ message: error.message });
+                return;
+            }
         }
 
         if (!user) {
